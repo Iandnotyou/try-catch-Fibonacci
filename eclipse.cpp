@@ -32,38 +32,38 @@ using namespace std;
 
 /*Ausnahmefunktion zu überprüfung ob der Output > Input ist*/
 int check (int cx, int cx_1, int cx_2)
-	{
-		if (cx < cx_1)						//Wenn Output < Input ~> verwerfe Output/ Lösung ...
-		{
-			throw int (cx);						//... ~> verwerfe Output/ Lösung ...
-		}
-		return cx;							// ... sonste gebe Output wieder
-	}
+{
+	if (cx < cx_1)						//Wenn Output < Input ~> verwerfe Output/ Lösung ...
+		throw 	std::overflow_error("addition overflow");				//... ~> verwerfe Output/ Lösung ...
+	return cx;							// ... sonste gebe Output wieder
+}
 
 int main()
 {
 	int x,x_1=1,x_2=0;
 	int n;
 
-/*Generierung einer Fibonacci-Reihe*/
+	/*Generierung einer Fibonacci-Reihe*/
 	for (int i=2; i<=n;i++)
 	{
 
-		x = x_1 + x_2;						//errechne Fibonacci-Wert
+		x = x_1 + x_2;			//errechne Fibonacci-Wert
 
 		/*überprüfe Ausnahmen*/
-		try							//überprüfe die Ausnahmefkt.
-				{
-					check(x, x_1,x_2);
-				}
-				catch(int)				//wenn Ausnahme eintritt
-				{
-					x = x_1;				//vertausche die x-Werte damit Zeile 69 & 70 keine Auswirkung haben
-					x_1 = x_2;
-					
-					return x;
-					return x_1;
-				}
+		try				//überprüfe die Ausnahmefkt.
+		{
+			check(x, x_1,x_2);
+		}
+		catch(string &e)		//wenn Ausnahme eintritt
+		{
+			cerr << e << endl;
+			
+			x = x_1;		//vertausche die x-Werte damit Zeile 69 & 70 keine Auswirkung haben
+			x_1 = x_2;
+			
+			return x;
+			return x_1;
+		}
 				
 		cout << "Pos." << i << ": " <<  x  << endl;
 
